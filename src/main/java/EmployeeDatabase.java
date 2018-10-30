@@ -52,10 +52,16 @@ public class EmployeeDatabase {
      * @param employee name of the employee
      * @return int
      */
+    public static int count = 0;
     public int countManagersAbove(final Employee employee) {
         /*
          * Implement this function
          */
+        if (employee.getManager().equals("")) {
+            return count;
+        }
+        count++;
+        return countManagersAbove(findManager(employee));
     }
 
     /**
@@ -66,10 +72,20 @@ public class EmployeeDatabase {
      * @param employee name of the employee
      * @return int
      */
+    public static int count1 = 0;
     public int countEmployeesUnder(final Employee employee) {
         /*
          * Implement this function
          */
+        for (int i = 0; i < employees.size(); i++) {
+            if (employees.get(i).getManager().equals(employee.getName())) {
+                count1++;
+                Employee person = employees.get(i);
+                countEmployeesUnder(person);
+            }
+        }
+        return count1;
+
     }
 
     /**
@@ -108,25 +124,32 @@ public class EmployeeDatabase {
         // Count employees under
         int answer = database.countEmployeesUnder(sally);
         System.out.println("Sally has " + Integer.toString(answer) + " employees under her.\n");
+        EmployeeDatabase.count1 = 0;
 
         answer = database.countEmployeesUnder(nathan);
         System.out.println("Nathan has " + Integer.toString(answer) + " employees under him.\n");
+        EmployeeDatabase.count1 = 0;
 
         answer = database.countEmployeesUnder(betty);
         System.out.println("Betty has " + Integer.toString(answer) + " employees under her.\n");
+        EmployeeDatabase.count1 = 0;
 
         answer = database.countEmployeesUnder(veronica);
         System.out.println("Veronica has " + Integer.toString(answer) + " employees under her.\n");
+        EmployeeDatabase.count1 = 0;
 
         // Count managers above
         answer = database.countManagersAbove(sally);
         System.out.println("Sally has " + Integer.toString(answer) + " managers above her.\n");
+        EmployeeDatabase.count = 0;
 
         answer = database.countManagersAbove(veronica);
         System.out.println("Veronica has " + Integer.toString(answer) + " managers above her.\n");
+        EmployeeDatabase.count = 0;
 
         answer = database.countManagersAbove(bob);
         System.out.println("Bob has " + Integer.toString(answer) + " managers above him.\n");
+        EmployeeDatabase.count = 0;
 
         answer = database.countManagersAbove(betty);
         System.out.println("Betty has " + Integer.toString(answer) + " managers above her.\n");
